@@ -14,8 +14,6 @@ class CollectSubExprsVisitorForCrossOver(ExpressionVisitorPattern):
     def visitPlus(self, e):
         self.ret_list.append(e)
         super().visitPlus(e)
-    
-
 
     def visitMult(self, e):
         self.ret_list.append(e)
@@ -24,7 +22,6 @@ class CollectSubExprsVisitorForCrossOver(ExpressionVisitorPattern):
     def visitMinus(self, e):
         self.ret_list.append(e)
         super().visitMinus(e)
-        
 
     def visitDiv(self, e):
         self.ret_list.append(e)
@@ -35,11 +32,14 @@ class CollectSubExprsVisitorForCrossOver(ExpressionVisitorPattern):
          super().visitUnaryFnApplication(e)
 
 
+
 def collect_all_subexpressions(e):
     e_subexpr_list = []
     e_subexpr_collector = CollectSubExprsVisitorForCrossOver(e_subexpr_list)
     e_subexpr_collector.visitExpr(e)
     return e_subexpr_list
+
+
 
 def random_subtree_crossover(e1, e2, copy = True): 
     # Crossover operator must take two expressions e1 and e2
@@ -66,6 +66,7 @@ def random_subtree_crossover(e1, e2, copy = True):
     return (e_a, e_b)
 
 
+
 def situate_expression_into_random_expr(e_orig, lst_of_identifiers, params):
     u = random()
     if u <= 0.8:
@@ -81,6 +82,7 @@ def situate_expression_into_random_expr(e_orig, lst_of_identifiers, params):
     else:
         fn = choice(params.allowed_unary_funs)
         return UnaryFnApplication(fn, e_orig)
+
 
 
 def random_expression_mutation(e_orig, lst_of_identifiers, params, copy=True):
