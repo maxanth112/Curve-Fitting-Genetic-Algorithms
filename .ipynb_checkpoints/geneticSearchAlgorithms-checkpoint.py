@@ -3,11 +3,11 @@ from fitnessAndValidityFunctions import is_viable_expr, compute_fitness
 from crossOverOperators import random_expression_mutation, random_subtree_crossover
 from geneticAlgParams import GAParams
 from matplotlib import pyplot as plt 
+from tqdm import tqdm
 
 import random
 import math
 import numpy as np
-from tqdm import tqdm
 
 
 class GASolver: 

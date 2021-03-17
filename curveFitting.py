@@ -32,30 +32,12 @@ def one_dimensional_curve_fitting_test(lambda_fun, x_limits, n_data_points, pop_
     if method == 'ga':
         (best_expr, best_fitness, stats) = curve_fit_using_genetic_algorithm(params, ['x'], pop_size, num_iters)
         best_expr = best_expr.simplify()
-#         print(f'GA Returned Solution: {best_expr} with fitness {best_fitness}')
     else: 
         params.temperature = params.simulated_annealing_start_temp
         (best_expr, best_fitness, stats) = run_simulated_annealing(num_iters, pop_size, ['x'], params)
         
     end = time.time()
     elapsed_time = end - start
-#     plt.figure(1)
-#     x_values = [x_value for ([x_value], _) in data]
-#     plt.plot(x_values, [y for (_,y) in data],'x')
-#     test_xvalues = sorted([x for [x] in test_points])
-#     result = [best_expr.eval({'x':x_value}) for x_value in test_xvalues ]
-#     gTruth = [lambda_fun(x_value) for x_value in test_xvalues ]
-#     plt.plot(test_xvalues, result, 'r-',label='ga_fit')
-#     plt.plot(test_xvalues, gTruth, 'g-', label='ground-truth')
-#     plt.legend()
-#     plt.xlabel('x')
-#     plt.ylabel('y')
-#     plt.figure(2)
-#     plt.plot(range(len(stats)), [st for st in stats], 'b-')
-#     plt.xlabel('Iters')
-#     plt.ylabel('Max Fitness')
-#     #plt.plot(range(len(stats)), [(st[1] if st[1] > -100 else -100) for st in stats], 'r--')
-#     plt.show()
     return (best_expr, best_fitness, stats, elapsed_time, params)
 
 if __name__ == '__main__':

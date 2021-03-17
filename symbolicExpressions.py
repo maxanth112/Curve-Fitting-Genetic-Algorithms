@@ -1,6 +1,7 @@
 from functools import reduce 
-import math 
 from copy import deepcopy
+
+import math 
 
 # Abstract Syntax Tree Implementation in Python
 # Author: Sriram Sankaranarayanan (srirams@colorado)

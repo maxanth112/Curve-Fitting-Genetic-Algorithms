@@ -6,6 +6,7 @@ from geneticAlgParams import GAParams
 
 import random
 import math 
+
     
 def single_step(curr_state, curr_temp, n_neighbors, identifiers, params):
     
