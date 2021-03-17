@@ -16,4 +16,3 @@ class GAParams:
         self.simulated_annealing_cool_steps = 100
         self.simulated_annealing_cool_frac = 0.85
         self.simulated_annealing_start_temp = 100
-    # Do not forget to set the training data and test_points for viability
