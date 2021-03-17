@@ -34,7 +34,8 @@ def startAllIterations(iterations = 1, population_num = 1, point_count = 1, each
     test_instances = [{'results': [[-float('inf')]*5 for i in range(3)],
                            'all': [[0]*5 for i in range(3)],
                            'conditions': criteria} for criteria in [GA_criteria, SA_criteria]]
-    
+    global best_per_run_test4
+    best_per_run_test4 = [[[] for i in range(3)] for j in range(2)]
     with tqdm(total = each_test*len(GA_criteria)*len(test_instances)*len(tests)) as pbar:
         for iteration in range(each_test):
             for curr_algorithm_index in range(len(test_instances)):
@@ -48,11 +49,14 @@ def startAllIterations(iterations = 1, population_num = 1, point_count = 1, each
                             test_instances[curr_algorithm_index]['conditions'][curr_condition_index][2],
                             'ga' if curr_algorithm_index == 0 else 'sa')
 
+                        if curr_test_index == 3:
+                            best_per_run_test4[curr_algorithm_index][curr_condition_index].append(all_data_results[1])
+                        
                         if all_data_results[1] > test_instances[curr_algorithm_index]['results'][curr_condition_index][curr_test_index]:
                             test_instances[curr_algorithm_index]['results'][curr_condition_index][curr_test_index] = all_data_results[1]
                             test_instances[curr_algorithm_index]['all'][curr_condition_index][curr_test_index] = all_data_results
+                            
                         pbar.update(1)       
-                        
                         
         
         
@@ -75,7 +79,6 @@ def highlight_max_save(data, colormax='antiquewhite', colormaxlast='lightgreen',
     max_contendors = [test_instances[index]['results'][i][max_index_x] for i in range(3)]
     max_index_y = max_contendors.index(max(max_contendors))
     plot_printout_indexs.append([index, max_index_x, max_index_y])
-    
     return highlight_last_max(data, colormax, colormaxlast)
     
     
@@ -127,14 +130,37 @@ def create_data_frames():
 
 
 
+def createSingleTestDfs():
+    dfs = [None]*2
+    for ind in range(len(names)):
+        df = pd.DataFrame(np.array([best_per_run_test4[0][i] for i in range(len(GA_criteria))]), 
+                     index = [f'{crit[0]}, {crit[1]}' for crit in GA_criteria],
+                     columns = [f'Test {i}' for i in range(1, 6)])
+        df.loc[:,'Mean'] = df.mean(numeric_only=True, axis=1)
+        df.loc[:,'Std Dev'] = df.std(numeric_only=True, axis=1)
+        df.loc[:,'Variance'] = df.var(numeric_only=True, axis=1)
+        df = df.rename_axis('Criteria: Num of Iterations, Population Size')
+        dfs[ind] = df
+    return dfs
+    
+    
+    
+    
 def print_plots(plot, message = 0):
-    message = "Best Performing Function in Highest Average Fitness Column" if message == 0 else "Best Performing Funciton in Fastest Average Runtime Column"
-    criteria = GA_criteria if plot[0] == 0 else SA_criteria
-    population_name = "Population" if plot[0] == 0 else "Neighborhood Size"
+    
     data = test_instances[plot[0]]['all'][plot[2]][plot[1]][4].regression_training_data
     test_points = test_instances[plot[0]]['all'][plot[2]][plot[1]][4].test_points
     best_expr = test_instances[plot[0]]["all"][plot[2]][plot[1]][0]
     stats = test_instances[plot[0]]["all"][plot[2]][plot[1]][2]
+    
+    if message == 0:
+        message = "Best Performing Function in Highest Average Fitness Column"
+        criteria = GA_criteria
+        population_name = "Population"
+    else:
+        message = "Best Performing Funciton in Fastest Average Runtime Column"
+        criteria = SA_criteria
+        population_name = "Neighborhood Size"    
     print(f'\n\n\n{names[plot[0]]} : \n   [{message}] : Function {plot[1] + 1}')
     print(f'   Iterations = {criteria[plot[2]][0]}, {population_name} = {criteria[plot[2]][1]}')
     print(f'   Function: {best_expr}')
@@ -163,13 +189,18 @@ def print_plots(plot, message = 0):
     
     
     
-def printVizs():
-    dfs = create_data_frames()
-    print('\n')
-    display(dfs[0])
-    print_plots(plot_printout_indexs[0], 0)
-    print_plots(plot_printout_indexs[1], 1)
-    print('\n')
-    display(dfs[1])
-    print_plots(plot_printout_indexs[2], 0)
-    print_plots(plot_printout_indexs[3], 1)
+def printVizs(phase = 0):
+    
+    if phase != 2:
+        dfs = create_data_frames() if phase == 0 else createSingleTestDfs()
+        print('\n')
+        display(dfs[0])
+        print('\n')
+        display(dfs[1])
+    else:
+        print_plots(plot_printout_indexs[0], 0)
+        print_plots(plot_printout_indexs[1], 1)
+        print('\n')
+        print_plots(plot_printout_indexs[2], 0)
+        print_plots(plot_printout_indexs[3], 1)
+        
