@@ -1,11 +1,10 @@
 from geneticAlgParams import GAParams
 from geneticSearchAlgorithms import curve_fit_using_genetic_algorithm
 from random import random
-from matplotlib import pyplot as plt
-from simulatedAnnealing import run_simulated_annealing 
-
 import math 
 import time
+from matplotlib import pyplot as plt
+from simulatedAnnealing import run_simulated_annealing 
 
 
 def one_dimensional_curve_fitting_test(lambda_fun, x_limits, n_data_points, pop_size = 1000, num_iters = 100, n_test_points = 100, method='ga'):
@@ -56,7 +55,7 @@ def one_dimensional_curve_fitting_test(lambda_fun, x_limits, n_data_points, pop_
 #     plt.ylabel('Max Fitness')
 #     #plt.plot(range(len(stats)), [(st[1] if st[1] > -100 else -100) for st in stats], 'r--')
 #     plt.show()
-    return (best_expr, best_fitness, stats, elapsed_time, params)
+    return (best_expr, best_fitness, stats, elapsed_time)
 
 if __name__ == '__main__':
     one_dimensional_curve_fitting_test(lambda x: 0.2*math.exp(x/4.0) -  math.sin(2*x)  , (-10.0, 10.0), 25, method='sa')
