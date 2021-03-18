@@ -100,7 +100,7 @@ Here we display the 'best of' categories we highlighted in our first set of data
 printVizs(2)
 ```
 
-![output_9_1.PNG](./images/output_9_1.PNG)
-![output_9_2.PNG](./images/output_9_2.PNG)
+![output_9_1.png](./images/output_9_1.png)
+![output_9_2.png](./images/output_9_2.png)
 
 #### Thats All Folks!
