@@ -193,10 +193,17 @@ def printVizs(phase = 0):
     
     if phase != 2:
         dfs = create_data_frames() if phase == 0 else createSingleTestDfs()
-        print('\n')
-        display(dfs[0])
-        print('\n')
-        display(dfs[1])
+        if phase == 1:
+            print(f'Funciton 4 Variance and Standard Deviation - {names[0]}')
+            display(dfs[0])
+            print('\n')
+            print(f'Funciton 4 Variance and Standard Deviation - {names[1]}')            
+            display(dfs[0])
+        else: 
+            print('\n')
+            display(dfs[0])
+            print('\n')
+            display(dfs[1])
     else:
         print_plots(plot_printout_indexs[0], 0)
         print_plots(plot_printout_indexs[1], 1)
