@@ -9,7 +9,7 @@ We will apply these tequniques to estimate the following five functions.
 <ul>
     <li><img src="https://latex.codecogs.com/gif.latex? f_1 (x) = \frac{1}{5}e^{\frac{x}{4}} - \sin{2x}" /> </li>
     <li>f_1 (x) = \frac{1}{5}e^{\frac{x}{4}} - \sin{2x}```</li>
-    <li>$f_2 (x) = \sin{2x} - \cos{3x - 1} + 2\sin{\frac{x}{2} + 1}$</li>
+    <li>$`f_2 (x) = \sin{2x} - \cos{3x - 1} + 2\sin{\frac{x}{2} + 1}`$</li>
     <li>$f_3 (x) = e^{\sin{2x} - e^{\cos{3x}}}$</li>
     <li>$f_4 (x) = \frac{1}{20}x^2 - \frac{1}{2}x + 5\sin{3x}$</li>
     <li>$f_5 (x) = \frac{1}{20}x^2 - \frac{1}{2}\sqrt{x} + 5\sin{3x}$</li>
