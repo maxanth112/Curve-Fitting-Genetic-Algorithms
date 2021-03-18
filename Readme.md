@@ -36,10 +36,10 @@ A progress bar will update as tests are completed.
 %matplotlib inline
 from generatePlots import startAllIterations, printVizs
 
-iterations = 0.5 # optimal : 1, otherwise : must be at least 5% to avoid Null equations 
-population = 0.5 # optimal : 1, otherwise : must be at least 5% to avoid Null equations
+iterations = 1 # optimal : 1, otherwise : must be at least 5% to avoid Null equations 
+population = 1 # optimal : 1, otherwise : must be at least 5% to avoid Null equations
 num_points = 1 # optimal : 1
-num_tests = 5 # optimal : 5
+num_tests  = 5 # optimal : 5
 startAllIterations(iterations, population, num_points, num_tests)
 printVizs()
 ```
@@ -50,10 +50,14 @@ printVizs()
 > <span style="color:lightblue">Blue : </span> Overall best performance - Highlights the column and row best performances on average.<br>
 > <span style="color:#ffcccb">Red </span> Benchmark KPI for each algorithm - Shows the average fitness acheived from the overall tests with the ranging criteria. Ans the overall runtime per test against the ranging average inputs. 
 <br>
+
+
 ##### Observations 
 As seen above, the two tables highlight the observed statistics for each of the algorithms. Simmulated annealing seems to perform a lot faster on average, but at the cost of its fitness functions. The genetic algorithm takes longer, but has almost twice as good fitness functions as compared to the simulated annealing. On average, we also observed that the first and third functions were the functions we were able to consistently approximate the best, followed by the second, then fifth, then fourth function. Funciton four and five consistently performed substancially worst, and considering these two are the only two functions of the five that have regular polynomial components, this is peculiar. It seems we were more effective in estimating nonlinear functions than near linear ones. 
 <br> 
 <br>
+
+
 #### Fitness : Standard Deviation, and Variance
 Here we look closer at function 1; since it was the best performing on average, it is likely to show some insight on its consistency. Below we see the total tests used in estimating function 1. Five tests for each of the three conditions. Notice the standard deviation and variance of each of the categories. Generally, the more iterations, the better results we got, thus less variance. This is why we see in all of the cases we run, that the top category with the most iterations performing the best. It also gives insight that a lower population leads to better results to a certain degree in the genetic algorithm. This makes since because there will be considerably better 'average genes' in a smaller population once good genes are found. With simulated annealing on the other hand, we saw the best performance with somewhat balanced iterations to population criteria. 
 
@@ -63,12 +67,7 @@ if num_tests == 5:
     printVizs(1)
 ```
 ![tables_out_92.PNG](./images/tables_out_92.PNG)
-Write a brief analysis of your results. Some questions to answer:
-- Which problem ran the fastest? Why do you think this is the case?
-- Which problem ended with the highest fitness? Why do you think this is the case?
-- How similar were the running times across the 5 repetitions?
-- How similar were the final fitness scores across the 5 repetitions?
-- Was there anything else interesting in your results?
+
 
 ### The Implementation
 <b>Genetic Algorithm</b><br>
@@ -78,6 +77,9 @@ The structure for the genetic algorithm was split up into three main parts, with
 > <b>mutate_all_exprs</b> : In this method, we are doing two operations to the 80% that need to be improved. First, we assign all of the childrens in pairs, next we cross breed the pair, and then mutate the pair, or we randomly do one of the two operations on them; Either we swap their sub trees (cross their genes), or we mutate them separately. This is like randomly changing a random part of their sub trees, but independent of its pair. Finally, we check if their new expression is valid, ie. no <img src="https://render.githubusercontent.com/render/math?math=\sqrt{-1}">, and if so, we move on to the next pair, until the entire 80% we were passed is an entirely new group. Then we pass these back to be joined with the elite 20% that were good enough to avoid this process. <br>
 *All of the code for this can be found in geneticSearchAlgorithms.py, and the code mangling, storing, and analyzing this data can be found in generatePlots.py
 <br><br>
+
+
+
 <b>Simulated Annealing Algorithm</b><br>
 This algorithm was comprised of two main funcitons. Here, our goal was to start with an initial child, and through each iteration, we generated N mutations of our one child, this was done by the same random subtree alteration we used above in the genetic algorithms implementation. From here, we randomly selected a expression from this group of 'neighbors' (since they are closely related to the main child), and we then chose either to take this random one, of keep our current. 
 > <b>run_simulated_annealing</b> : This is the main function where our control logic lives. We first generate a random expression, making sure that this random expression is a valid one. Next we record its fitness level in longitutal array of stats that keeps a record of our iterations best for later plotting. Then, we enter the main loop. From here, we check if we need to reduce our temperature, the temperature updated based on what iteration we are currently on and the provided cooling step we set. It is used in making the descision of randomly keeping a less than optimal expression with the methodology that it could save us from local maxima and help us toward the goal of finding the global maxima; we reduce the temperature by the cooling fraction (how fast we want to decrement the temperature). Next, we compute a single step, save out current fitness, and update our global statistics. <br>
