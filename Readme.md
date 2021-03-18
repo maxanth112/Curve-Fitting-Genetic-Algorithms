@@ -36,10 +36,10 @@ A progress bar will update as tests are completed.
 %matplotlib inline
 from generatePlots import startAllIterations, printVizs
 
-iterations = 0.5 # optimal : 1, otherwise : must be at least 5% to avoid Null equations 
-population = 0.5 # optimal : 1, otherwise : must be at least 5% to avoid Null equations
+iterations = 1 # optimal : 1, otherwise : must be at least 5% to avoid Null equations 
+population = 1 # optimal : 1, otherwise : must be at least 5% to avoid Null equations
 num_points = 1 # optimal : 1
-num_tests = 5 # optimal : 5
+num_tests  = 5 # optimal : 5
 startAllIterations(iterations, population, num_points, num_tests)
 printVizs()
 ```
@@ -67,12 +67,7 @@ if num_tests == 5:
     printVizs(1)
 ```
 ![tables_out_92.PNG](./images/tables_out_92.PNG)
-Write a brief analysis of your results. Some questions to answer:
-- Which problem ran the fastest? Why do you think this is the case?
-- Which problem ended with the highest fitness? Why do you think this is the case?
-- How similar were the running times across the 5 repetitions?
-- How similar were the final fitness scores across the 5 repetitions?
-- Was there anything else interesting in your results?
+
 
 ### The Implementation
 <b>Genetic Algorithm</b><br>
