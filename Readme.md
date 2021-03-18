@@ -44,26 +44,25 @@ startAllIterations(iterations, population, num_points, num_tests)
 printVizs()
 ```
 
+![tables_out_9.PNG](./images/tables_out_9.PNG)
 #### Data Table Details
 > <span style="color:lightgreen">Green : </span> Best fitness per column - Function, cooresponding to the index column of iterations, population<br>
 > <span style="color:lightblue">Blue : </span> Overall best performance - Highlights the column and row best performances on average.<br>
 > <span style="color:#ffcccb">Red </span> Benchmark KPI for each algorithm - Shows the average fitness acheived from the overall tests with the ranging criteria. Ans the overall runtime per test against the ranging average inputs. 
 <br>
-
 ##### Observations 
-As seen above, the two tables highlight the observed statistics for each of the algorithms. Simmulated annealing seems to perform a lot faster on average, but at the cost of its fitness functions. The genetic algorithm takes longer, but has almost twice as good fitness functions as compared to the simulated annealing. On average, we also observed that the first and third functions were the functions we were able to consistently approximate the best, followed by the second, then fifth, then fourth function. Since the fourth function was consistently the hardest to estimate, we will look closer at its estimations and cooresponding fitness values next. 
+As seen above, the two tables highlight the observed statistics for each of the algorithms. Simmulated annealing seems to perform a lot faster on average, but at the cost of its fitness functions. The genetic algorithm takes longer, but has almost twice as good fitness functions as compared to the simulated annealing. On average, we also observed that the first and third functions were the functions we were able to consistently approximate the best, followed by the second, then fifth, then fourth function. Funciton four and five consistently performed substancially worst, and considering these two are the only two functions of the five that have regular polynomial components, this is peculiar. It seems we were more effective in estimating nonlinear functions than near linear ones. 
 <br> 
 <br>
-
 #### Fitness : Standard Deviation, and Variance
-Here we look closer at function 4; since it was the worst performing on average, it is likely to show better insight as compared to the consistently top performing function 1. Below we see the total tests used in estimating function 4. Five tests for each of the three conditions. Notice the high standard deviation and variance of each of the categories. Generally, the more iterations, the better results we got, thus less variance. This is why we see in all of the cases we run, that the top category with the most iterations performing the best. It also gives insight that a lower population leads to better results to a certain degree in the genetic algorithm. This makes since because there will be considerably better 'average genes' in a smaller population once good genes are found. With simulated annealing on the other hand, we saw the best performance with somewhat balanced iterations to population criteria. 
+Here we look closer at function 1; since it was the best performing on average, it is likely to show some insight on its consistency. Below we see the total tests used in estimating function 1. Five tests for each of the three conditions. Notice the standard deviation and variance of each of the categories. Generally, the more iterations, the better results we got, thus less variance. This is why we see in all of the cases we run, that the top category with the most iterations performing the best. It also gives insight that a lower population leads to better results to a certain degree in the genetic algorithm. This makes since because there will be considerably better 'average genes' in a smaller population once good genes are found. With simulated annealing on the other hand, we saw the best performance with somewhat balanced iterations to population criteria. 
 
 
 ```python
 if num_tests == 5:
     printVizs(1)
 ```
-
+![tables_out_92.PNG](./images/tables_out_92.PNG)
 Write a brief analysis of your results. Some questions to answer:
 - Which problem ran the fastest? Why do you think this is the case?
 - Which problem ended with the highest fitness? Why do you think this is the case?
@@ -76,8 +75,7 @@ Write a brief analysis of your results. Some questions to answer:
 The structure for the genetic algorithm was split up into three main parts, with a few additional helper functions. We put everything inside of a class GASolver, where the details and specifics of the state could be easily tracked and accessed. All of our expressions that we mutated or passed on in each iteration were kept in a data structure called 'chillums', slang for them childrens, since we are dabbling in genetics and evolutionary mutation, it seemed fitting. Each child of the current population was stored with its fitness value, and its selection weight, thus we could easily locate all the needed details when mutating the population and deciding who to keep and scrap. 
 > <b>run_ga_iterations</b> : This method initiated the evolution, we first randomly created N children, and then we made these kids have kids, then we bred their kids with some of them, or maybe other kids, and continued this for iter_n generations. We loop through this process in this function, but we call another function to do the work for us. <br>
 > <b>make_next_generation</b> : Here, we sort all of the current children by their fitness level, and keep the top 20% for breeding in the next generation. The other 80% are sent off to a figuritive labratory where we mix and match their genes. In this case, we are swapping sub trees of their expressions. Next, we join the two groups back together, in descending order of fitness values, and we record our current bests.<br>
-> <b>mutate_all_exprs</b> : In this method, we are doing two operations to the 80% that need to be improved. First, we assign all of the childrens in pairs, next we randomly do one of two operations on them. Either we swap their sub trees (cross their genes), or we mutate them separately. This is like randomly changing a random part of their sub trees, but independent of its pair. Finally, we check if their new expression is valid, ie. no <img src="https://render.githubusercontent.com/render/math?math=\sqrt{-1}">, and if so, we move on to the next pair, until the entire 80% we were passed is an entirely new group. Then we pass these back to be joined with the elite 20% that were good enough to avoid this process. <br>
-
+> <b>mutate_all_exprs</b> : In this method, we are doing two operations to the 80% that need to be improved. First, we assign all of the childrens in pairs, next we cross breed the pair, and then mutate the pair, or we randomly do one of the two operations on them; Either we swap their sub trees (cross their genes), or we mutate them separately. This is like randomly changing a random part of their sub trees, but independent of its pair. Finally, we check if their new expression is valid, ie. no <img src="https://render.githubusercontent.com/render/math?math=\sqrt{-1}">, and if so, we move on to the next pair, until the entire 80% we were passed is an entirely new group. Then we pass these back to be joined with the elite 20% that were good enough to avoid this process. <br>
 *All of the code for this can be found in geneticSearchAlgorithms.py, and the code mangling, storing, and analyzing this data can be found in generatePlots.py
 <br><br>
 <b>Simulated Annealing Algorithm</b><br>
@@ -101,5 +99,8 @@ Here we display the 'best of' categories we highlighted in our first set of data
 ```python
 printVizs(2)
 ```
+
+![output_9_1.PNG](./images/output_9_1.PNG)
+![output_9_2.PNG](./images/output_9_2.PNG)
 
 #### Thats All Folks!

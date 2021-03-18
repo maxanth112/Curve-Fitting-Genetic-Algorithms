@@ -22,20 +22,20 @@ tests = [
 def startAllIterations(iterations = 1, population_num = 1, point_count = 1, each_test = 5):
 
     global GA_criteria 
-    GA_criteria = np.array([[iterations*10000, population_num*40, point_count*100], 
-                            [iterations*5000, population_num*80, point_count*100], 
-                            [iterations*2500, population_num*160, point_count*100]]).astype(int)
+    GA_criteria = np.array([[iterations*1000, population_num*40, point_count*100], 
+                            [iterations*500, population_num*80, point_count*100], 
+                            [iterations*250, population_num*120, point_count*100]]).astype(int)
     global SA_criteria
-    SA_criteria = np.array([[iterations*1000, population_num*40, point_count*100],
-                                [iterations*500, population_num*80, point_count*100],
-                                [iterations*250, population_num*160, point_count*100]]).astype(int)
+    SA_criteria = np.array([[iterations*10000, population_num*40, point_count*100],
+                                [iterations*5000, population_num*80, point_count*100],
+                                [iterations*2500, population_num*120, point_count*100]]).astype(int)
 
     global test_instances
     test_instances = [{'results': [[-float('inf')]*5 for i in range(3)],
                            'all': [[0]*5 for i in range(3)],
                            'conditions': criteria} for criteria in [GA_criteria, SA_criteria]]
-    global best_per_run_test4
-    best_per_run_test4 = [[[] for i in range(3)] for j in range(2)]
+    global best_per_run_test1
+    best_per_run_test1 = [[[] for i in range(3)] for j in range(2)]
     with tqdm(total = each_test*len(GA_criteria)*len(test_instances)*len(tests)) as pbar:
         for iteration in range(each_test):
             for curr_algorithm_index in range(len(test_instances)):
@@ -49,8 +49,8 @@ def startAllIterations(iterations = 1, population_num = 1, point_count = 1, each
                             test_instances[curr_algorithm_index]['conditions'][curr_condition_index][2],
                             'ga' if curr_algorithm_index == 0 else 'sa')
 
-                        if curr_test_index == 3:
-                            best_per_run_test4[curr_algorithm_index][curr_condition_index].append(all_data_results[1])
+                        if curr_test_index == 0:
+                            best_per_run_test1[curr_algorithm_index][curr_condition_index].append(all_data_results[1])
                         
                         if all_data_results[1] > test_instances[curr_algorithm_index]['results'][curr_condition_index][curr_test_index]:
                             test_instances[curr_algorithm_index]['results'][curr_condition_index][curr_test_index] = all_data_results[1]
@@ -133,7 +133,7 @@ def create_data_frames():
 def createSingleTestDfs():
     dfs = [None]*2
     for ind in range(len(names)):
-        df = pd.DataFrame(np.array([best_per_run_test4[0][i] for i in range(len(GA_criteria))]), 
+        df = pd.DataFrame(np.array([best_per_run_test1[0][i] for i in range(len(GA_criteria))]), 
                      index = [f'{crit[0]}, {crit[1]}' for crit in GA_criteria],
                      columns = [f'Test {i}' for i in range(1, 6)])
         df.loc[:,'Mean'] = df.mean(numeric_only=True, axis=1)
@@ -194,10 +194,10 @@ def printVizs(phase = 0):
     if phase != 2:
         dfs = create_data_frames() if phase == 0 else createSingleTestDfs()
         if phase == 1:
-            print(f'Funciton 4 Variance and Standard Deviation - {names[0]}')
+            print(f'Funciton 1 Variance, Standard Deviation - {names[0]}')
             display(dfs[0])
             print('\n')
-            print(f'Funciton 4 Variance and Standard Deviation - {names[1]}')            
+            print(f'Funciton 1 Variance, Standard Deviation - {names[1]}')            
             display(dfs[0])
         else: 
             print('\n')

@@ -10,7 +10,7 @@ class GAParams:
         self.lst_of_random_constants = [1.0, -1.0, 2.0, -2.0, 0.5, -0.5, None]
         self.regression_training_data = []
         self.test_points = [] 
-        self.depth = 3
+        self.depth = 4
         self.elitism_fraction = 0.2
         self.temperature = 10
         self.simulated_annealing_cool_steps = 100

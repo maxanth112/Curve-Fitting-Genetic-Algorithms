@@ -44,7 +44,7 @@ class GASolver:
                 gen_success += 1
     
    
-    def mutate_all_exprs(self, candidates, method = 'mix'):
+    def mutate_all_exprs(self, candidates, method = 'double'):
     
         mutated_list = []
         candidates = self.sort_chillums_by(candidates, 'prob')
@@ -53,11 +53,14 @@ class GASolver:
         while len(mutated_list) < (self.N - self.N*self.params.elitism_fraction):            
             chillum_pair = np.random.choice(candidates, 2, candidate_weights)
             
-            if method == 'crossover' or (method == 'mix' and random.randint(1, 10) <= 5):
+            if method == 'double':
+                chillum_pair = random_subtree_crossover(chillum_pair[0]['expr'], chillum_pair[1]['expr'])
+                mutated_pair = [random_expression_mutation(chillum, self.identifiers, self.params) for chillum in chillum_pair]
+            elif method == 'crossover' or (method == 'mix' and random.randint(1, 10) <= 6):
                 mutated_pair = random_subtree_crossover(chillum_pair[0]['expr'], chillum_pair[1]['expr'])
             elif method == 'mutation' or (method == 'mix'):
                 mutated_pair = [random_expression_mutation(chillum['expr'], self.identifiers, self.params) for chillum in chillum_pair]
-                
+            
             for mutated_expr in mutated_pair:
                 if is_viable_expr(mutated_expr, self.identifiers, self.params):
                     mutated_list.append(self.create_chillum(mutated_expr))
