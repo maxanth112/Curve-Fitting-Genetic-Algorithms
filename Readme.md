@@ -1,5 +1,5 @@
 ## Curve Fitting with Genetic Algorithms 
-By Max Wiesner
+By Max Wiesner <i>*head to projectDetails.ipynb to run and test simulations</i>
 <br>
 <br>
 #### The High Level Rundown
@@ -7,12 +7,11 @@ In this project we will look at how genetic algorithms can use evolutionary sear
 <br>
 We will apply these tequniques to estimate the following five functions.
 <ul>
-    <li><img src="https://render.githubusercontent.com/render/math?math=\frac{1}{5}e^{\frac{x}{4}} - \sin{2x}"></li>
-    <li>f_1 (x) = \frac{1}{5}e^{\frac{x}{4}} - \sin{2x}```</li>
-    <li>$`f_2 (x) = \sin{2x} - \cos{3x - 1} + 2\sin{\frac{x}{2} + 1}`$</li>
-    <li>$f_3 (x) = e^{\sin{2x} - e^{\cos{3x}}}$</li>
-    <li>$f_4 (x) = \frac{1}{20}x^2 - \frac{1}{2}x + 5\sin{3x}$</li>
-    <li>$f_5 (x) = \frac{1}{20}x^2 - \frac{1}{2}\sqrt{x} + 5\sin{3x}$</li>
+    <li><img src="https://render.githubusercontent.com/render/math?math=f_1 (x) = \frac{1}{5}e^{\frac{x}{4}} - \sin{2x}"></li>
+    <li><img src="https://render.githubusercontent.com/render/math?math=f_2 (x) = \sin{2x} - \cos{3x - 1} + 2\sin{\frac{x}{2} + 1}"></li>
+    <li><img src="https://render.githubusercontent.com/render/math?math=f_3 (x) = e^{\sin{2x} - e^{\cos{3x}}}"></li>
+    <li><img src="https://render.githubusercontent.com/render/math?math=f_4 (x) = \frac{1}{20}x^2 - \frac{1}{2}x + 5\sin{3x}"></li>
+    <li><img src="https://render.githubusercontent.com/render/math?math=f_5 (x) = \frac{1}{20}x^2 - \frac{1}{2}\sqrt{x} + 5\sin{3x}"></li>
 </ul>
 Performance will also be dependant on the different inputs to each algorithm we have manifest below. Note, the main focus of this project is the genetic algorithm and evolutionary search, not the sumulated annealing algorithm, thus, we will not go in depth on analyzing the changes in performance that come with varying the temperature, cooling rate, and cooling step fraction. Instead, we will vary two parameters that both these functions share (in a sense). 
 <ul>
