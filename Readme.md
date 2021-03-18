@@ -18,7 +18,7 @@ Performance will also be dependant on the different inputs to each algorithm we 
     <li> Iterations - The number of iterations each algorithm will run, with the genetic algorithm this is the number of generations it will mutate and breed; with the simulated annealing, this is the number of times we pick a random neighbor that potentially replaced our current best answer.</li>
     <li> Population - Population is the number of new candidates we produce or hold on to in each iteration. So, for the genetic algorithm, this is clearly the population; ie. in each iteration, we either update the current population, or we reorder it and reevaluate the current fitness of the population. For the simulated annealing, this is the number of new neighbors we produce from our current best state. </li>
     <li><i>Optional Parameters</i> - The number of points we are estimating against, the total number of tests to be run for each function per each (Iterations, Instances) combination. We will not focus on these in the analysis. </li>
-<\ul>
+</ul>
 Below we see the call to startAllIterations, it takes the following arguments:
     <div align="center"><br><b>startAllIterations(iterations, instances, points, numTests)</b><br></div>
     <br>
@@ -49,10 +49,12 @@ printVizs()
 > <span style="color:lightblue">Blue : </span> Overall best performance - Highlights the column and row best performances on average.<br>
 > <span style="color:#ffcccb">Red </span> Benchmark KPI for each algorithm - Shows the average fitness acheived from the overall tests with the ranging criteria. Ans the overall runtime per test against the ranging average inputs. 
 <br>
+
 ##### Observations 
 As seen above, the two tables highlight the observed statistics for each of the algorithms. Simmulated annealing seems to perform a lot faster on average, but at the cost of its fitness functions. The genetic algorithm takes longer, but has almost twice as good fitness functions as compared to the simulated annealing. On average, we also observed that the first and third functions were the functions we were able to consistently approximate the best, followed by the second, then fifth, then fourth function. Since the fourth function was consistently the hardest to estimate, we will look closer at its estimations and cooresponding fitness values next. 
 <br> 
 <br>
+
 #### Fitness : Standard Deviation, and Variance
 Here we look closer at function 4; since it was the worst performing on average, it is likely to show better insight as compared to the consistently top performing function 1. Below we see the total tests used in estimating function 4. Five tests for each of the three conditions. Notice the high standard deviation and variance of each of the categories. Generally, the more iterations, the better results we got, thus less variance. This is why we see in all of the cases we run, that the top category with the most iterations performing the best. It also gives insight that a lower population leads to better results to a certain degree in the genetic algorithm. This makes since because there will be considerably better 'average genes' in a smaller population once good genes are found. With simulated annealing on the other hand, we saw the best performance with somewhat balanced iterations to population criteria. 
 
